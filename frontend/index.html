@@ -5,11 +5,12 @@
     <meta charset="utf-8" />
   </head>
   <body>
+    <span id="points"> ??? </span>
     <button>Alternar</button>
-    <span> ??? </span>
+    <span id="span"> ??? </span>
 
     <script>
-      const span = document.querySelector("span");
+      const span = document.querySelector("#span");
 
       let isOpen = true;
       document.querySelector("button").addEventListener("click", (_) => {
@@ -24,6 +25,24 @@
         isOpen = true;
         span.innerText = "Abierto";
       });
+
+      const points = document.querySelector("#points");
+
+      function showPoints() {
+        fetch("/_/info")
+          .then((data) => data.json())
+          .then((data) => {
+            console.log(data);
+            points.innerText = `Points: ${data.Points}`;
+            setTimeout(showPoints, 500);
+          })
+          .catch((err) => {
+            console.log(err);
+            setTimeout(showPoints, 500);
+          });
+      }
+
+      showPoints();
     </script>
   </body>
 </html>
