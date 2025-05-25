@@ -10,12 +10,11 @@ import (
 	"strings"
 	"time"
 
+	"github.com/alizarazot/VI-Peaje/internal/frontend"
+
 	"github.com/charmbracelet/log"
 	"go.bug.st/serial"
 )
-
-//go:embed frontend/index.html
-var indexHTML []byte
 
 const (
 	envAddr   = "PEAJE_ADDR"
@@ -178,12 +177,7 @@ func main() {
 		log.Info("Info sended!")
 	})
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if _, err := w.Write(indexHTML); err != nil {
-			log.Error(err)
-			return
-		}
-	})
+	http.Handle("/", http.FileServerFS(frontend.Assets))
 
 	addr := os.Getenv(envAddr)
 	if addr == "" {
