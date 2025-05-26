@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <title>Información - Peaje</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script defer src="/js/main.js"></script>
+  </head>
+  <body class="bg-gray-100 min-h-screen overflow-x-hidden">
+    <div class="w-full min-h-screen px-4 py-6 flex flex-col gap-4">
+    
+      <div class="flex items-center justify-between w-full mb-6 mt-2">
+        <div class="text-2xl font-bold text-gray-800 leading-tight select-none">
+          Sistema<br>Control Vehicular
+        </div>
+        <div class="flex gap-3">
+          <button class="bg-white rounded-xl p-4 shadow-lg flex items-center justify-center relative">
+            <i class="fa-regular fa-bell text-xl text-gray-600"></i>
+          </button>
+          <button class="bg-white rounded-xl p-4 shadow-lg flex items-center justify-center">
+            <i class="fa-solid fa-gear text-xl text-gray-600"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Contenido principal de Información -->
+      <div class="bg-white rounded-2xl shadow-lg p-8 w-full flex flex-col items-center">
+        <span class="text-2xl font-bold text-blue-600 mb-6">
+          <i class="fa-solid fa-info-circle mr-3"></i>Información del Sistema
+        </span>
+        
+        <!-- Contenido de información -->
+        <div class="w-full space-y-6">
+          <!-- Manual de uso -->
+          <div class="bg-blue-50 rounded-xl p-6">
+            <h3 class="text-lg font-semibold text-blue-800 mb-4">
+              <i class="fa-solid fa-book mr-2"></i>Manual de Uso
+            </h3>
+            <div class="space-y-3 text-gray-700">
+              <div class="flex items-start gap-3">
+                <span class="bg-blue-200 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">1</span>
+                <p>Utiliza el botón principal para abrir o cerrar la puerta del peaje.</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="bg-blue-200 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">2</span>
+                <p>Revisa el historial de movimientos en la pantalla principal.</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="bg-blue-200 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">3</span>
+                <p>Accede a las secciones de multas y conteo de vehículos desde el menú principal.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Información del sistema -->
+          <div class="bg-gray-50 rounded-xl p-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">
+              <i class="fa-solid fa-cog mr-2"></i>Información del Sistema
+            </h3>
+            <div class="grid grid-cols-1 gap-4">
+              <div class="flex justify-between items-center">
+                <span class="text-gray-600">Versión del Sistema:</span>
+                <span class="font-semibold text-gray-800">v1.0.0</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-gray-600">Estado del Servidor:</span>
+                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                  <i class="fa-solid fa-circle text-green-500 mr-1"></i>Conectado
+                </span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-gray-600">Última Actualización:</span>
+                <span class="font-semibold text-gray-800">Hoy, 14:30</span>
+              </div>
+            </div>
+          </div>
+
+         
+
+          <!-- Funcionalidades -->
+          <div class="bg-green-50 rounded-xl p-6">
+            <h3 class="text-lg font-semibold text-green-800 mb-4">
+              <i class="fa-solid fa-list-check mr-2"></i>Funcionalidades Principales
+            </h3>
+            <div class="grid grid-cols-1 gap-3">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-check-circle text-green-600"></i>
+                <span class="text-gray-700">Control automático de puerta</span>
+              </div>
+             
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-check-circle text-green-600"></i>
+                <span class="text-gray-700">Sistema de multas</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-check-circle text-green-600"></i>
+                <span class="text-gray-700">Conteo automático de vehículos</span>
+              </div>
+            
+            </div>
+          </div>
+        </div>
+
+        <!-- Botón para volver -->
+        <button onclick="goHome()" class="mt-8 px-8 py-3 rounded-full bg-blue-600 text-white font-bold w-full shadow-lg hover:bg-blue-700 transition">
+          <i class="fa-solid fa-arrow-left mr-2"></i>Volver al Inicio
+        </button>
+      </div>
+    </div>
+  </body>
+</html> 

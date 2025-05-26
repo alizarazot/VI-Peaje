@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <title>Multas - Peaje</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script defer src="/js/main.js"></script>
+  </head>
+  <body class="bg-gray-100 min-h-screen overflow-x-hidden">
+    <div class="w-full min-h-screen px-4 py-6 flex flex-col gap-4">
+      
+      <div class="flex items-center justify-between w-full mb-6 mt-2">
+        <div class="text-2xl font-bold text-gray-800 leading-tight select-none">
+          Sistema<br>Control Vehicular
+        </div>
+        <div class="flex gap-3">
+          <button class="bg-white rounded-xl p-4 shadow-lg flex items-center justify-center relative">
+            <i class="fa-regular fa-bell text-xl text-gray-600"></i>
+          </button>
+          <button class="bg-white rounded-xl p-4 shadow-lg flex items-center justify-center">
+            <i class="fa-solid fa-gear text-xl text-gray-600"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Contenido principal de Multas -->
+      <div class="bg-white rounded-2xl shadow-lg p-8 w-full flex flex-col items-center">
+        <span class="text-2xl font-bold text-blue-600 mb-6">
+          <i class="fa-solid fa-gavel mr-3"></i>Sistema de Multas
+        </span>
+        
+        <!-- Estadísticas de multas -->
+        <div class="w-full space-y-6">
+          <!-- Contador de multas -->
+          <div class="bg-red-50 rounded-xl p-6 text-center">
+            <div class="text-3xl font-bold text-red-600 mb-2">
+              <span id="multas-count">0</span>
+            </div>
+            <div class="text-sm text-gray-600">Multas Registradas Hoy</div>
+            
+          </div>
+
+          <!-- Tabla de multas en tiempo real -->
+          <div class="bg-gray-50 rounded-xl p-6">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-lg font-semibold text-gray-800">
+                <i class="fa-solid fa-list mr-2"></i>Registro de Multas en Tiempo Real
+              </h3>
+              <div class="flex items-center text-sm text-gray-600">
+                <div class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
+                En vivo
+              </div>
+            </div>
+            
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm text-left">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-100 rounded-lg">
+                  <tr>
+                    <th class="px-4 py-3">Fecha</th>
+                    <th class="px-4 py-3">Hora</th>
+                    <th class="px-4 py-3">Placa</th>
+                    <th class="px-4 py-3">Infracción</th>
+                    <th class="px-4 py-3">Puntos</th>
+                    <th class="px-4 py-3">Monto</th>
+                  </tr>
+                </thead>
+                <tbody id="multas-table-body">
+                  <tr>
+                    <td colspan="6" class="px-4 py-8 text-center text-gray-500">
+                      <i class="fa-solid fa-spinner fa-spin mr-2"></i>
+                      Cargando datos de multas...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        
+        </div>
+
+        <!-- Botón para volver -->
+        <button onclick="goHome()" class="mt-8 px-8 py-3 rounded-full bg-blue-600 text-white font-bold w-full shadow-lg hover:bg-blue-700 transition">
+          <i class="fa-solid fa-arrow-left mr-2"></i>Volver al Inicio
+        </button>
+      </div>
+    </div>
+  </body>
+</html> 

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <title>Configuración - Peaje</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script defer src="/js/main.js"></script>
+  </head>
+  <body class="bg-gray-100 min-h-screen overflow-x-hidden">
+    <div class="w-full min-h-screen px-4 py-6 flex flex-col gap-4">
+      
+      <div class="flex items-center justify-between w-full mb-6 mt-2">
+        <div class="text-2xl font-bold text-gray-800 leading-tight select-none">
+          Sistema<br>Control Vehicular
+        </div>
+        <div class="flex gap-3">
+          <button onclick="openNotificationsModal()" class="bg-white rounded-xl p-4 shadow-lg flex items-center justify-center relative">
+            <i class="fa-regular fa-bell text-xl text-gray-600"></i>
+          </button>
+          <button class="bg-blue-600 rounded-xl p-4 shadow-lg flex items-center justify-center">
+            <i class="fa-solid fa-gear text-xl text-white"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Contenido principal de Configuración -->
+      <div class="bg-white rounded-2xl shadow-lg p-8 w-full flex flex-col items-center">
+        <span class="text-2xl font-bold text-blue-600 mb-6">
+          <i class="fa-solid fa-gear mr-3"></i>Configuración
+        </span>
+        
+        <!-- Información de la versión -->
+        <div class="w-full max-w-md space-y-6">
+          <!-- Versión de la aplicación -->
+          <div class="bg-blue-50 rounded-xl p-6 text-center">
+            <div class="mb-4">
+              <i class="fa-solid fa-code-branch text-4xl text-blue-600 mb-3"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-blue-800 mb-2">Versión de la Aplicación</h3>
+            <div class="text-3xl font-bold text-blue-600 mb-2">v1.0.0</div>
+            <p class="text-sm text-blue-700">Sistema de Control Vehicular</p>
+          </div>
+
+          
+        </div>
+
+        <!-- Botón para volver -->
+        <button onclick="goHome()" class="mt-8 px-8 py-3 rounded-full bg-blue-600 text-white font-bold w-full max-w-md shadow-lg hover:bg-blue-700 transition">
+          <i class="fa-solid fa-arrow-left mr-2"></i>Volver al Inicio
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal de Notificaciones (copiado del index para mantener funcionalidad) -->
+    <div id="notifications-modal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
+      <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[80vh] flex flex-col">
+        <!-- Header del modal -->
+        <div class="flex items-center justify-between p-6 border-b border-gray-200">
+          <h2 class="text-xl font-bold text-gray-800">
+            <i class="fa-solid fa-bell mr-2 text-blue-600"></i>
+            Notificaciones
+          </h2>
+          <button onclick="closeNotificationsModal()" class="text-gray-400 hover:text-gray-600 transition">
+            <i class="fa-solid fa-times text-xl"></i>
+          </button>
+        </div>
+        
+        <!-- Contenido del modal -->
+        <div class="flex-1 overflow-y-auto p-6">
+          <!-- Mensaje cuando no hay notificaciones -->
+          <div class="text-center py-12">
+            <i class="fa-regular fa-bell text-6xl text-gray-300 mb-6"></i>
+            <p class="text-gray-500 text-xl font-medium mb-2">Aquí estarán las notificaciones</p>
+            <p class="text-gray-400 text-sm">Todas las notificaciones del sistema aparecerán en este espacio</p>
+          </div>
+        </div>
+        
+        <!-- Footer del modal -->
+        <div class="border-t border-gray-200 p-4">
+          <button onclick="closeNotificationsModal()" class="w-full bg-gray-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-gray-700 transition">
+            <i class="fa-solid fa-times mr-2"></i>
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Funciones para el modal de notificaciones
+      function openNotificationsModal() {
+        document.getElementById('notifications-modal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeNotificationsModal() {
+        document.getElementById('notifications-modal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }
+
+      // Cerrar modal al hacer clic fuera de él
+      document.getElementById('notifications-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+          closeNotificationsModal();
+        }
+      });
+
+      // Cerrar modal con tecla Escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeNotificationsModal();
+        }
+      });
+    </script>
+  </body>
+</html> 
