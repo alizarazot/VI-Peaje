@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
-	"strconv"
 	"strings"
 	"time"
 
@@ -30,7 +29,6 @@ const (
 	arduinoDistanceA = "DISTANCE_A"
 	arduinoDistanceB = "DISTANCE_B"
 	arduinoTime      = "TIME"
-	arduinoPoints    = "POINTS"
 )
 
 func init() {
@@ -56,6 +54,8 @@ func main() {
 		if len(ports) == 0 {
 			log.Fatal("No ports detected!")
 		}
+
+		port = ports[0]
 	}
 	log.Info("Using:", "port", port)
 
@@ -79,16 +79,38 @@ func main() {
 
 	log.Info("Arduino is ready!")
 
+	var isOpen bool
+
+	http.HandleFunc("/_/door-status", func(w http.ResponseWriter, r *http.Request) {
+		log.Debug("`/_/door-status` called!")
+
+		data, err := json.MarshalIndent(struct{ IsOpen bool }{isOpen}, "", "  ")
+		if err != nil {
+			log.Error(err)
+			return
+		}
+		log.Debug("Data to send:", "data", string(data))
+
+		if _, err := w.Write(data); err != nil {
+			log.Error(err)
+			return
+		}
+
+		log.Info("Info sended!")
+	})
+
 	http.HandleFunc("/_/open", func(w http.ResponseWriter, r *http.Request) {
 		log.Debug("`/_/open` called!")
 		arduino.write(arduinoOpen)
-		log.Info("Door closed!")
+		isOpen = true
+		log.Info("Door opened!")
 	})
 
 	http.HandleFunc("/_/close", func(w http.ResponseWriter, r *http.Request) {
 		log.Debug("`/_/close` called!")
 		arduino.write(arduinoClose)
-		log.Info("Door opened!")
+		isOpen = false
+		log.Info("Door closed!")
 	})
 
 	http.HandleFunc("/_/info", func(w http.ResponseWriter, r *http.Request) {
@@ -136,33 +158,7 @@ func main() {
 			return
 		}
 
-		if rawPoints[0] != arduinoPoints {
-			log.Error("Invalid format!", "rawPoints[0]", rawPoints[0])
-			return
-		}
-
-		distanceA, err := strconv.Atoi(rawA[1])
-		if err != nil {
-			log.Error(err)
-			return
-		}
-		distanceB, err := strconv.Atoi(rawB[1])
-		if err != nil {
-			log.Error(err)
-			return
-		}
-		time, err := strconv.Atoi(rawTime[1])
-		if err != nil {
-			log.Error(err)
-			return
-		}
-		points, err := strconv.Atoi(rawPoints[1])
-		if err != nil {
-			log.Error(err)
-			return
-		}
-
-		data, err := json.MarshalIndent(struct{ DistanceA, DistanceB, Time, Points int }{distanceA, distanceB, time, points}, "", "  ")
+		data, err := json.MarshalIndent(struct{ Probability int }{67}, "", "  ")
 		if err != nil {
 			log.Error(err)
 			return

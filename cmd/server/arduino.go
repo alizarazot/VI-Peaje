@@ -12,8 +12,8 @@ type arduinoCommand string
 
 const (
 	arduinoInfo  arduinoCommand = "INFO"
-	arduinoOpen  arduinoCommand = "OPEN"
-	arduinoClose arduinoCommand = "CLOSE"
+	arduinoOpen  arduinoCommand = "OPEN_DOOR"
+	arduinoClose arduinoCommand = "CLOSE_DOOR"
 )
 
 type arduino struct {
