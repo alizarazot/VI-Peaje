@@ -104,6 +104,9 @@ function startMultasMonitoring() {
       .then((data) => {
         console.log("Datos recibidos:", data);
 
+        document.querySelector("#probability").innerText =
+          `Probability: ${data.Probability}%`;
+
         //  puntos son mayor a 50, es una multa
         if (data.Probability >= 50) {
           console.log(`Multa Puntos: ${data.Probability}`);
@@ -154,7 +157,7 @@ function startMultasMonitoring() {
 
   // Ejecutar inmediatamente y luego cada 3 segundos (reducir frecuencia para evitar duplicados)
   checkForMultas();
-  multasInterval = setInterval(checkForMultas, 3000);
+  multasInterval = setInterval(checkForMultas, 500);
 }
 
 function generateRandomPlate() {

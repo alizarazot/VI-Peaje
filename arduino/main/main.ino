@@ -63,9 +63,6 @@ void loop() {
 
   if (ultrasoundA < ACTIVATION_DISTANCE && ultrasoundA != 0) {
     unsigned long time = micros();
-    if (time - lastMeasurement < 500000) {
-      return;
-    }
     Serial.println("# Ultrasound A Activated!");
     digitalWrite(13, HIGH);
     digitalWrite(12, LOW);
@@ -77,7 +74,7 @@ void loop() {
     Serial.println("# Ultrasound B Activated!");
 
     float time = float(micros() - lastMeasurement) / 1000000.0;
-    probability = (1 - ((time + random(10) * 0.01) / (1.5))) * 100;
+    probability = (1 - time/0.5) * 100;
     lastMeasurement = 0;
 
     digitalWrite(12, HIGH);
