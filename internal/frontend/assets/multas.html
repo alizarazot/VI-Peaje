@@ -34,17 +34,15 @@
         </div>
       </div>
 
-      <!-- Contenido principal de Multas -->
-      <div id="probability" style="font-size: 32pt">???</div>
+      <!-- SCRIPT MULTAS -->
       <script>
-        console.log("I'm hrer");
         const probability = document.querySelector("#probability");
 
         function updateProb() {
           fetch("/_/info")
             .then((data) => data.json())
             .then((json) => {
-              console.log("rstat", json);
+             
               probability.innerText = `${json.Probability}%`;
               setTimeout(updateProb, 500);
             });
@@ -60,6 +58,15 @@
 
         <!-- Estadísticas de multas -->
         <div class="w-full space-y-6">
+
+         <!-- Probabilidad de Multa -->
+     
+          <div class="bg-blue-50 rounded-xl p-6 text-center mb-6">
+            <div class="text-3xl font-bold text-blue-600 mb-2">
+              <span id="probability">???</span>
+            </div>
+            <div class="text-sm text-gray-600">Probabilidad de Multa</div>
+          </div>
           <!-- Contador de multas -->
           <div class="bg-red-50 rounded-xl p-6 text-center">
             <div class="text-3xl font-bold text-red-600 mb-2">
@@ -91,7 +98,6 @@
                   <tr>
                     <th class="px-4 py-3">Fecha</th>
                     <th class="px-4 py-3">Hora</th>
-                    <th class="px-4 py-3">Placa</th>
                     <th class="px-4 py-3">Infracción</th>
                     <th class="px-4 py-3">Puntos</th>
                     <th class="px-4 py-3">Monto</th>

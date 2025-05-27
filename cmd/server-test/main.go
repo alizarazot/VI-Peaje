@@ -44,14 +44,14 @@ func main() {
 	http.HandleFunc("/_/info", func(w http.ResponseWriter, r *http.Request) {
 		log.Debug("`/_/info` called!")
 
-		data, err := json.MarshalIndent(struct{ DistanceA, DistanceB, Time, Points int }{rand.IntN(120), rand.IntN(120), rand.IntN(10), rand.IntN(100 + 1)}, "", "  ")
+		probability, err := json.MarshalIndent(struct{ DistanceA, DistanceB, Time, Probability int }{rand.IntN(120), rand.IntN(120), rand.IntN(10), rand.IntN(100 + 1)}, "", "  ")
 		if err != nil {
 			log.Error(err)
 			return
 		}
-		log.Debug("Data to send:", "data", string(data))
+		log.Debug("Data to send:", "data", string(probability))
 
-		if _, err := w.Write(data); err != nil {
+		if _, err := w.Write(probability); err != nil {
 			log.Error(err)
 			return
 		}

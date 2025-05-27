@@ -105,7 +105,7 @@ function startMultasMonitoring() {
         console.log("Datos recibidos:", data);
 
         document.querySelector("#probability").innerText =
-          `Probability: ${data.Probability}%`;
+          `${data.Probability}%`;
 
         //  puntos son mayor a 50, es una multa
         if (data.Probability >= 50) {
@@ -179,11 +179,11 @@ function generateRandomPlate() {
 }
 
 function getInfractionType(points) {
-  if (points >= 90) return "Exceso de velocidad grave";
-  if (points >= 80) return "Exceso de velocidad moderado";
-  if (points >= 70) return "Exceso de velocidad";
-  if (points >= 60) return "Exceso de velocidad";
-  return "Exceso de velocidad";
+  if (points >= 90) return "Exceso de velocidad Demasiado Grave";
+  if (points >= 80) return "Exceso de velocidad Grave";
+  if (points >= 70) return "Exceso de velocidad Moderado";
+  if (points >= 60) return "Exceso de velocidad Bajo";
+  return "Exceso de velocidad Bajo";
 }
 
 function updateMultasTable() {
@@ -216,11 +216,10 @@ function updateMultasTable() {
       row.innerHTML = `
         <td class="px-4 py-3 text-sm">${multa.fecha}</td>
         <td class="px-4 py-3 text-sm">${multa.hora}</td>
-        <td class="px-4 py-3 text-sm font-semibold text-blue-600">${multa.placa}</td>
         <td class="px-4 py-3 text-sm">${multa.infraccion}</td>
         <td class="px-4 py-3 text-sm">
           <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-medium">
-            ${multa.puntos} pts
+            ${multa.puntos} %
           </span>
         </td>
         <td class="px-4 py-3 text-sm font-semibold text-green-600">${multa.monto}</td>
