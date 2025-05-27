@@ -27,7 +27,13 @@ func newArduino(rwc io.ReadWriteCloser) *arduino {
 	go func() {
 		scanner := bufio.NewScanner(rwc)
 		for scanner.Scan() {
-			a.data <- scanner.Text()
+			text := strings.TrimSpace(scanner.Text())
+			// log.Debugf("Arduino: %q.", text)
+			if text == "" || strings.HasPrefix(text, "#") {
+				// log.Debug("Message from Arduino ignored!")
+				continue
+			}
+			a.data <- text
 		}
 		close(a.data)
 	}()
@@ -37,15 +43,7 @@ func newArduino(rwc io.ReadWriteCloser) *arduino {
 
 func (a *arduino) read() string {
 	for {
-		data := strings.TrimSpace(<-a.data)
-		log.Debugf("Arduino: %q.", data)
-
-		if data == "" || strings.HasPrefix(data, "#") {
-			log.Debug("Message from Arduino ignored!")
-			continue
-		}
-
-		return data
+		return <-a.data
 	}
 }
 

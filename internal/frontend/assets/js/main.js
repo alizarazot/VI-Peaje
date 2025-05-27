@@ -105,8 +105,8 @@ function startMultasMonitoring() {
         console.log("Datos recibidos:", data);
 
         //  puntos son mayor a 50, es una multa
-        if (data.Points > 50) {
-          console.log(`Multa Puntos: ${data.Points}`);
+        if (data.Probability >= 50) {
+          console.log(`Multa Puntos: ${data.Probability}`);
 
           const nuevaMulta = {
             id: Date.now(), // ID único para evitar duplicados
@@ -117,20 +117,15 @@ function startMultasMonitoring() {
               second: "2-digit",
             }),
             placa: generateRandomPlate(),
-            infraccion: getInfractionType(data.Points),
-            puntos: data.Points,
+            infraccion: getInfractionType(data.Probability),
+            puntos: data.Probability,
             monto: "$604.100",
-            distanciaA: data.DistanceA,
-            distanciaB: data.DistanceB,
-            tiempo: data.Time,
           };
 
           // Verificar si ya existe una multa muy similar (evitar duplicados)
           const existeMultaSimilar = multasData.some(
             (multa) =>
               multa.puntos === nuevaMulta.puntos &&
-              multa.distanciaA === nuevaMulta.distanciaA &&
-              multa.distanciaB === nuevaMulta.distanciaB &&
               Date.now() - multa.id < 5000, // Menos de 5 segundos de diferencia
           );
 

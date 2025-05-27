@@ -194,8 +194,6 @@
       }
 
       toggleBtn.addEventListener("click", () => {
-        console.log("isOpen", isOpen);
-
         if (isOpen) {
           console.log("Closing...");
           setButtonCloseAppearance();
@@ -249,7 +247,6 @@
             return data.json();
           })
           .then((json) => {
-            console.log("json", json);
             isOpen = json.IsOpen;
             if (isOpen) {
               setButtonOpenAppearance();

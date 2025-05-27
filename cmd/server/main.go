@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
-	"strings"
+	"strconv"
 	"time"
 
 	"github.com/alizarazot/VI-Peaje/internal/frontend"
@@ -115,50 +115,18 @@ func main() {
 
 	http.HandleFunc("/_/info", func(w http.ResponseWriter, r *http.Request) {
 		log.Debug("`/_/info` called!")
-		arduino.write(arduinoInfo)
 
 		log.Info("Processing info from Arduino...")
+		arduino.write(arduinoInfo)
 
-		rawA := strings.Fields(arduino.read())
-		if len(rawA) != 2 {
-			log.Error("Invalid format!", "rawA", rawA)
+		probabilityRaw := arduino.read()
+		probability, err := strconv.Atoi(probabilityRaw)
+		if err != nil {
+			log.Error(err)
 			return
 		}
 
-		rawB := strings.Fields(arduino.read())
-		if len(rawB) != 2 {
-			log.Error("Invalid format!", "rawB", rawB)
-			return
-		}
-
-		rawTime := strings.Fields(arduino.read())
-		if len(rawTime) != 2 {
-			log.Error("Invalid format!", "rawTime", rawTime)
-			return
-		}
-
-		rawPoints := strings.Fields(arduino.read())
-		if len(rawPoints) != 2 {
-			log.Error("Invalid format!", "rawPoints", rawPoints)
-			return
-		}
-
-		if rawA[0] != arduinoDistanceA {
-			log.Error("Invalid format!", "rawA[0]", rawA[0])
-			return
-		}
-
-		if rawB[0] != arduinoDistanceB {
-			log.Error("Invalid format!", "rawB[0]", rawB[0])
-			return
-		}
-
-		if rawTime[0] != arduinoTime {
-			log.Error("Invalid format!", "rawTime[0]", rawTime[0])
-			return
-		}
-
-		data, err := json.MarshalIndent(struct{ Probability int }{67}, "", "  ")
+		data, err := json.MarshalIndent(struct{ Probability int }{max(0, probability)}, "", "  ")
 		if err != nil {
 			log.Error(err)
 			return
