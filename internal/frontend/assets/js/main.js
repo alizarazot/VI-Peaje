@@ -5,7 +5,6 @@ function navigateToPage(page) {
   // Mapeo de páginas a archivos HTML
   const pageFiles = {
     multas: "multas.html",
-    vehiculos: "vehiculos.html",
     informacion: "informacion.html",
     configuracion: "configuracion.html",
   };
@@ -39,29 +38,7 @@ function navigateToPage(page) {
 
 // Función para ejecutar scripts específicos de cada página
 function executePageScripts(page) {
-  if (page === "vehiculos") {
-    // Ejecutar el script de actualización de vehículos
-    if (typeof updateVehicleCount === "function") {
-      updateVehicleCount();
-      setInterval(updateVehicleCount, 5000);
-    } else {
-      function updateVehicleCount() {
-        const totalElement = document.getElementById("total-vehiculos");
-        const activosElement = document.getElementById("vehiculos-activos");
-
-        if (totalElement && activosElement) {
-          const total = Math.floor(Math.random() * 100) + 50;
-          const activos = Math.floor(Math.random() * 20) + 5;
-
-          totalElement.textContent = total;
-          activosElement.textContent = activos;
-        }
-      }
-
-      updateVehicleCount();
-      setInterval(updateVehicleCount, 5000);
-    }
-  } else if (page === "multas") {
+  if (page === "multas") {
     setTimeout(() => {
       startMultasMonitoring();
     }, 100);
@@ -80,7 +57,7 @@ function startMultasMonitoring() {
 
   if (!tableBody || !multasCount) {
     console.error("Elementos del DOM no encontrados. Reintentando en 500ms...");
-    setTimeout(startMultasMonitoring, 500);
+    setTimeout(startMultasMonitoring, 100);
     return;
   }
 
@@ -112,7 +89,7 @@ function startMultasMonitoring() {
           console.log(`Multa Puntos: ${data.Probability}`);
 
           const nuevaMulta = {
-            id: Date.now(), // ID único para evitar duplicados
+            id: data.ID,
             fecha: new Date().toLocaleDateString("es-ES"),
             hora: new Date().toLocaleTimeString("es-ES", {
               hour: "2-digit",
@@ -125,12 +102,14 @@ function startMultasMonitoring() {
             monto: "$604.100",
           };
 
-          // Verificar si ya existe una multa muy similar (evitar duplicados)
-          const existeMultaSimilar = multasData.some(
-            (multa) =>
-              multa.puntos === nuevaMulta.puntos &&
-              Date.now() - multa.id < 5000, // Menos de 5 segundos de diferencia
-          );
+          let existeMultaSimilar = false;
+
+          for (let multa of multasData) {
+            if (multa.id === data.ID) {
+              existeMultaSimilar = true;
+              break;
+            }
+          }
 
           if (!existeMultaSimilar) {
             // Agregar la multa al inicio del array

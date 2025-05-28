@@ -113,6 +113,8 @@ func main() {
 		log.Info("Door closed!")
 	})
 
+	var lastProbability int
+	var probabilityID int
 	http.HandleFunc("/_/info", func(w http.ResponseWriter, r *http.Request) {
 		log.Debug("`/_/info` called!")
 
@@ -126,7 +128,12 @@ func main() {
 			return
 		}
 
-		data, err := json.MarshalIndent(struct{ Probability int }{max(0, probability)}, "", "  ")
+		if probability != lastProbability {
+			probabilityID++
+		}
+		lastProbability = probability
+
+		data, err := json.MarshalIndent(struct{ Probability, ID int }{max(0, probability), probabilityID}, "", "  ")
 		if err != nil {
 			log.Error(err)
 			return
