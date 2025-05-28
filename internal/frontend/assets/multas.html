@@ -42,9 +42,8 @@
           fetch("/_/info")
             .then((data) => data.json())
             .then((json) => {
-             
               probability.innerText = `${json.Probability}%`;
-              setTimeout(updateProb, 500);
+              setTimeout(updateProb, 100);
             });
         }
         updateProb();
@@ -58,12 +57,11 @@
 
         <!-- Estadísticas de multas -->
         <div class="w-full space-y-6">
+          <!-- Probabilidad de Multa -->
 
-         <!-- Probabilidad de Multa -->
-     
           <div class="bg-blue-50 rounded-xl p-6 text-center mb-6">
             <div class="text-3xl font-bold text-blue-600 mb-2">
-              <span id="probability">???</span>
+              <span id="probability">0%</span>
             </div>
             <div class="text-sm text-gray-600">Probabilidad de Multa</div>
           </div>
@@ -127,4 +125,3 @@
     </div>
   </body>
 </html>
-
