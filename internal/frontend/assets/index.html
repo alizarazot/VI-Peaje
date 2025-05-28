@@ -91,15 +91,6 @@
           Cerrar
         </button>
       </div>
-      <!-- Historial de movimientos -->
-      <div class="bg-white rounded-2xl shadow-lg flex-1 flex flex-col mb-6">
-        <div class="text-base font-bold text-gray-800 px-6 pt-5 pb-3">
-          Historial de movimientos
-        </div>
-        <ul class="max-h-60 overflow-y-auto px-3 pb-5 flex-1" id="history-list">
-          <!-- Los movimientos aparecerán aquí -->
-        </ul>
-      </div>
     </div>
 
     <!-- Modal de Notificaciones -->
@@ -156,29 +147,7 @@
     <script>
       const statusLabel = document.getElementById("status-label");
       const toggleBtn = document.getElementById("toggle-btn");
-      const historyList = document.getElementById("history-list");
       let isOpen = true;
-      function addHistoryEntry(status) {
-        const li = document.createElement("li");
-        const isOpen = status === "open";
-        const now = new Date();
-        const time = now.toLocaleTimeString("es-ES", {
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-        });
-        li.className = `flex items-center gap-3 rounded-2xl mb-3 p-3 shadow-sm bg-${isOpen ? "green" : "red"}-50`;
-        li.innerHTML = `
-          <span class='flex items-center justify-center rounded-xl w-10 h-10 ${isOpen ? "bg-green-200" : "bg-red-200"}'>
-            <i class='fa-solid fa-arrow-${isOpen ? "down" : "up"} text-2xl ${isOpen ? "text-green-600" : "text-red-500"}'></i>
-          </span>
-          <div class='flex-1'>
-            <div class='font-semibold text-gray-800'>${isOpen ? "Puerta abierta" : "Puerta cerrada"}</div>
-            <div class='text-xs text-gray-500'>${time}</div>
-          </div>
-        `;
-        historyList.prepend(li);
-      }
 
       toggleBtn.addEventListener("click", () => {
         if (isOpen) {
