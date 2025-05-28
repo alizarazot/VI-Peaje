@@ -74,7 +74,7 @@ void loop() {
     Serial.println("# Ultrasound B Activated!");
 
     float time = float(micros() - lastMeasurement) / 1000000.0;
-    probability = (1 - time/0.5) * 100;
+    probability = (1 - time/0.7) * 100;
     lastMeasurement = 0;
 
     digitalWrite(12, HIGH);
