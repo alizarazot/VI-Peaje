@@ -96,10 +96,9 @@ function startMultasMonitoring() {
               minute: "2-digit",
               second: "2-digit",
             }),
-            placa: generateRandomPlate(),
             infraccion: getInfractionType(data.Probability),
             puntos: data.Probability,
-            monto: "$604.100",
+            monto: `$${getInfractionCost(data.Probability)}`,
           };
 
           let existeMultaSimilar = false;
@@ -139,30 +138,20 @@ function startMultasMonitoring() {
   multasInterval = setInterval(checkForMultas, 500);
 }
 
-function generateRandomPlate() {
-  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const numbers = "0123456789";
-
-  let plate = "";
-  // 3 letras
-  for (let i = 0; i < 3; i++) {
-    plate += letters.charAt(Math.floor(Math.random() * letters.length));
-  }
-  plate += "-";
-  // 3 números
-  for (let i = 0; i < 3; i++) {
-    plate += numbers.charAt(Math.floor(Math.random() * numbers.length));
-  }
-
-  return plate;
-}
-
 function getInfractionType(points) {
   if (points >= 90) return "Exceso de velocidad Demasiado Grave";
   if (points >= 80) return "Exceso de velocidad Grave";
   if (points >= 70) return "Exceso de velocidad Moderado";
   if (points >= 60) return "Exceso de velocidad Bajo";
   return "Exceso de velocidad Bajo";
+}
+
+function getInfractionCost(probability) {
+  if (probability >= 90) return 1200000;
+  if (probability >= 80) return 900000;
+  if (probability >= 70) return 500000;
+  if (probability >= 60) return 450000;
+  return 300000;
 }
 
 function updateMultasTable() {
