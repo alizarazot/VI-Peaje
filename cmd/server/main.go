@@ -122,6 +122,7 @@ func main() {
 		arduino.write(arduinoInfo)
 
 		probabilityRaw := arduino.read()
+		log.Info("Arduino raw", "raw", probabilityRaw)
 		probability, err := strconv.Atoi(probabilityRaw)
 		if err != nil {
 			log.Error(err)

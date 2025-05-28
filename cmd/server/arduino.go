@@ -28,7 +28,7 @@ func newArduino(rwc io.ReadWriteCloser) *arduino {
 		scanner := bufio.NewScanner(rwc)
 		for scanner.Scan() {
 			text := strings.TrimSpace(scanner.Text())
-			// log.Debugf("Arduino: %q.", text)
+			log.Debugf("Arduino: %q.", text)
 			if text == "" || strings.HasPrefix(text, "#") {
 				// log.Debug("Message from Arduino ignored!")
 				continue
